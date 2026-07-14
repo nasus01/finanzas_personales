@@ -35,13 +35,31 @@ class _AgregarScreenState extends State<AgregarScreen> {
       );
       return;
     }
+    // ---> INICIO DEL FILTRO DE SEGURIDAD <---
+    // 1. Cambiamos comas por puntos automáticamente
+    String montoTexto = _montoController.text.replaceAll(',', '.');
+    
+    // 2. Intentamos convertirlo de forma segura (tryParse no explota si falla, solo devuelve null)
+    double? montoValidado = double.tryParse(montoTexto);
+
+    // 3. Si el usuario escribió letras o símbolos extraños, lanzamos el aviso rojo y detenemos el proceso
+    if (montoValidado == null || montoValidado <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Monto inválido. Ingresa solo números enteros o decimales con punto.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return; 
+    }
+    // ---> FIN DEL FILTRO DE SEGURIDAD <---
 
     setState(() { _estaGuardando = true; });
 
     if (_tipoSeleccionado == 'ingreso') {
       // Instanciamos tu clase Ingreso con los datos del formulario
       final nuevoIngreso = Ingreso(
-        monto: double.parse(_montoController.text),
+        monto: montoValidado,
         descripcion: _descripcionController.text,
         fecha: DateTime.now(), // Fecha actual automática
         usuarioId: UserSession.idUsuario, 
@@ -74,7 +92,7 @@ class _AgregarScreenState extends State<AgregarScreen> {
       }
     } else if (_tipoSeleccionado == 'gasto'){
       final nuevoGasto = Gasto(
-        monto: double.parse(_montoController.text),
+        monto: montoValidado,
         descripcion: _descripcionController.text,
         fecha: DateTime.now(),
         usuarioId: UserSession.idUsuario, 
