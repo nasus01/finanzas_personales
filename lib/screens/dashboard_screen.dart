@@ -15,8 +15,10 @@ class DashboardScreen extends StatefulWidget {
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
-
+   
 class _DashboardScreenState extends State<DashboardScreen> {
+  // --- NUEVO: Variable para controlar el mes seleccionado ---
+  int _mesSeleccionado = DateTime.now().month;
   // Esta función trae los datos y calcula los totales
   Future<Map<String, double>> _obtenerResumen() async {
     final ingresoService = IngresoService();
@@ -30,8 +32,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
         deudaService.obtenerDeudas(UserSession.idUsuario),
       ]);
 
-      final ingresos = resultados[0] as List<Ingreso>;
-      final gastos = resultados[1] as List<Gasto>;
+     // Filtramos ingresos y gastos comparando el mes de la fecha con el mes seleccionado
+      final ingresos = (resultados[0] as List<Ingreso>).where((i) => i.fecha.month == _mesSeleccionado).toList();
+      final gastos = (resultados[1] as List<Gasto>).where((g) => g.fecha.month == _mesSeleccionado).toList();
+      
+      // Las deudas no se filtran por mes, porque una deuda pendiente siempre debe mostrarse
       final deudas = resultados[2] as List<Deuda>;
 
       // Sumamos todos los ingresos
@@ -121,6 +126,50 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       ),
                        const SizedBox(height: 20),
+
+              // --- NUEVO: SELECTOR DE MES ---
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 5, offset: const Offset(0, 3)),
+                  ],
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<int>(
+                    value: _mesSeleccionado,
+                    isExpanded: true,
+                    icon: const Icon(Icons.calendar_month, color: Colors.blue),
+                    items: const [
+                      DropdownMenuItem(value: 1, child: Text('Enero')),
+                      DropdownMenuItem(value: 2, child: Text('Febrero')),
+                      DropdownMenuItem(value: 3, child: Text('Marzo')),
+                      DropdownMenuItem(value: 4, child: Text('Abril')),
+                      DropdownMenuItem(value: 5, child: Text('Mayo')),
+                      DropdownMenuItem(value: 6, child: Text('Junio')),
+                      DropdownMenuItem(value: 7, child: Text('Julio')),
+                      DropdownMenuItem(value: 8, child: Text('Agosto')),
+                      DropdownMenuItem(value: 9, child: Text('Septiembre')),
+                      DropdownMenuItem(value: 10, child: Text('Octubre')),
+                      DropdownMenuItem(value: 11, child: Text('Noviembre')),
+                      DropdownMenuItem(value: 12, child: Text('Diciembre')),
+                    ],
+                    onChanged: (valor) {
+                      if (valor != null) {
+                        setState(() { 
+                          _mesSeleccionado = valor; 
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              // --- FIN SELECTOR DE MES ---
+              
+              // --- TARJETA DE BALANCE ---
               
               // --- TARJETA DE BALANCE ---
               Container(
