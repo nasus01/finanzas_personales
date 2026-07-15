@@ -4,13 +4,15 @@ import '../models/deuda.dart';
 
 // Servicio que consulta y modifica las deudas almacenadas mediante la API.
 class DeudaService {
-  final String baseUrl = 'http://10.0.2.2:5282/api/deudas';
+  final String baseUrl = 'https://underfed-stitch-endearing.ngrok-free.dev/api/deudas';
 
   // Método GET para consultar las deudas.
   // Recibe el ID del usuario y devuelve su lista de deudas.
   Future<List<Deuda>> obtenerDeudas(int usuarioId) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl?usuarioId=$usuarioId'));
+      final response = await http.get(Uri.parse('$baseUrl?usuarioId=$usuarioId'),
+      headers: {'ngrok-skip-browser-warning': 'true'},
+      );
       if (response.statusCode == 200) {
         List jsonResponse = json.decode(response.body);
         return jsonResponse.map((data) => Deuda.fromJson(data)).toList();
@@ -28,7 +30,8 @@ class DeudaService {
     try {
       final response = await http.post(
         Uri.parse(baseUrl),
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'},
         body: json.encode(deuda.toJson()),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -47,7 +50,8 @@ class DeudaService {
       // Usamos el ID en la URL, asumiendo que tu API usa la ruta estándar: /api/deudas/5
       final response = await http.put(
         Uri.parse('$baseUrl/${deuda.id}'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'},
         body: json.encode(deuda.toJson()),
       );
       
@@ -65,7 +69,9 @@ class DeudaService {
   // Recibe el identificador de la deuda y devuelve si se eliminó correctamente.
   Future<bool> eliminarDeuda(int id) async {
     try {
-      final response = await http.delete(Uri.parse('$baseUrl/$id'));
+      final response = await http.delete(Uri.parse('$baseUrl/$id'),
+      headers: {'ngrok-skip-browser-warning': 'true'},
+      );
       return response.statusCode == 200 || response.statusCode == 204;
     } catch (e) {
       return false;

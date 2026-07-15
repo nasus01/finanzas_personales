@@ -4,14 +4,15 @@ import '../models/user_session.dart';
 
 // Servicio encargado de comunicarse con la API para autenticar y administrar usuarios.
 class AuthService {
-  final String baseUrl = 'http://10.0.2.2:5282/api/auth/login';
+  final String baseUrl = 'https://underfed-stitch-endearing.ngrok-free.dev/api/auth/login';
 
   // Envía el correo y la contraseña a la API e inicia sesión si las credenciales son válidas.
   Future<bool> iniciarSesion(String correo, String contrasena) async {
     try {
       final response = await http.post(
         Uri.parse(baseUrl),
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'},
         body: json.encode({
           'correo': correo,
           'contrasena': contrasena,
@@ -39,8 +40,9 @@ class AuthService {
   Future<bool> registrarUsuario(String nombre, String correo, String contrasena) async {
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:5282/api/auth/registro'),
-        headers: {'Content-Type': 'application/json'},
+        Uri.parse('https://underfed-stitch-endearing.ngrok-free.dev/api/auth/registro'),
+        headers: {'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'},
         body: json.encode({
           'nombre': nombre,
           'correo': correo,
@@ -61,8 +63,9 @@ class AuthService {
   Future<bool> recuperarContrasena(String correo, String nuevaContrasena) async {
   try {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:5282/api/auth/recuperar'),
-      headers: {'Content-Type': 'application/json'},
+      Uri.parse('https://underfed-stitch-endearing.ngrok-free.dev/api/auth/recuperar'),
+      headers: {'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true'},
       body: json.encode({'correo': correo, 'nuevaContrasena': nuevaContrasena}),
     );
     return response.statusCode == 200;

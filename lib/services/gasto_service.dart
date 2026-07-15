@@ -4,13 +4,15 @@ import '../models/gasto.dart';
 
 // Servicio que gestiona en la API las operaciones relacionadas con gastos.
 class GastoService {
-  final String baseUrl = 'http://10.0.2.2:5282/api/gastos';
+  final String baseUrl = 'https://underfed-stitch-endearing.ngrok-free.dev/api/gastos';
 
   // Método GET para consultar gastos.
   // Recibe el ID del usuario y devuelve todos sus gastos.
  Future<List<Gasto>> obtenerGastos(int usuarioId) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl?usuarioId=$usuarioId'));
+      final response = await http.get(Uri.parse('$baseUrl?usuarioId=$usuarioId'),
+      headers: {'ngrok-skip-browser-warning': 'true'},
+      );
       if (response.statusCode == 200) {
         List jsonResponse = json.decode(response.body);
         return jsonResponse.map((data) => Gasto.fromJson(data)).toList();
@@ -28,7 +30,8 @@ class GastoService {
     try {
       final response = await http.post(
         Uri.parse(baseUrl),
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'},
         body: json.encode(gasto.toJson()),
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -45,6 +48,7 @@ class GastoService {
     try {
       final response = await http.delete(
         Uri.parse('$baseUrl/$id'),
+        headers: {'ngrok-skip-browser-warning': 'true'},
       );
       return response.statusCode == 200 || response.statusCode == 204;
     } catch (e) {
@@ -57,7 +61,8 @@ class GastoService {
     try {
       final response = await http.put(
         Uri.parse('$baseUrl/${gasto.id}'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'},
         body: json.encode(gasto.toJson()),
       );
       return response.statusCode == 200 || response.statusCode == 204;

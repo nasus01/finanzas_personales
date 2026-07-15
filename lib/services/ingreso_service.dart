@@ -10,13 +10,16 @@ class IngresoService {
   // Google exige usar la IP especial '10.0.2.2'.
   
   // Reemplaza el '5000' por el puerto exacto que usa tu API de .NET (ej. 5001, 7123, etc.)
-  final String baseUrl = 'http://10.0.2.2:5282/api/ingresos';
+  final String baseUrl = 'https://underfed-stitch-endearing.ngrok-free.dev/api/ingresos';
 
   // Método GET para consultar ingresos.
   // Recibe el ID del usuario y devuelve la lista de ingresos que le pertenece.
   Future<List<Ingreso>> obtenerIngresos(int usuarioId) async {
     try {
-      final response = await http.get(Uri.parse('$baseUrl?usuarioId=$usuarioId'));
+      final response = await http.get(Uri.parse('$baseUrl?usuarioId=$usuarioId'),
+      headers: {'ngrok-skip-browser-warning': 'true'},
+      
+      );
 
       if (response.statusCode == 200) {
         // Si el servidor devuelve un OK (200), decodificamos el JSON
@@ -40,7 +43,8 @@ class IngresoService {
       final response = await http.post(
         Uri.parse(baseUrl),
         // Le decimos a tu API en .NET que le estamos enviando un JSON
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'},
         // Convertimos tu objeto Dart a JSON usando la POO
         body: json.encode(ingreso.toJson()),
       );
@@ -60,6 +64,7 @@ class IngresoService {
     try {
       final response = await http.delete(
         Uri.parse('$baseUrl/$id'),
+        headers: {'ngrok-skip-browser-warning': 'true'},
       );
       return response.statusCode == 200 || response.statusCode == 204;
     } catch (e) {
@@ -72,7 +77,8 @@ class IngresoService {
     try {
       final response = await http.put(
         Uri.parse('$baseUrl/${ingreso.id}'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json',
+        'ngrok-skip-browser-warning': 'true'},
         body: json.encode(ingreso.toJson()),
       );
       return response.statusCode == 200 || response.statusCode == 204;
