@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/deuda.dart';
 
+// Servicio que consulta y modifica las deudas almacenadas mediante la API.
 class DeudaService {
   final String baseUrl = 'http://10.0.2.2:5282/api/deudas';
 
-  // Método GET para consultar las deudas
+  // Método GET para consultar las deudas.
+  // Recibe el ID del usuario y devuelve su lista de deudas.
   Future<List<Deuda>> obtenerDeudas(int usuarioId) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl?usuarioId=$usuarioId'));
@@ -20,7 +22,8 @@ class DeudaService {
     }
   }
 
-  // Método POST para registrar una nueva deuda
+  // Método POST para registrar una nueva deuda.
+  // Recibe el objeto Deuda que se enviará a la API y devuelve si se guardó.
   Future<bool> crearDeuda(Deuda deuda) async {
     try {
       final response = await http.post(
@@ -37,7 +40,8 @@ class DeudaService {
       return false; 
     }
   }
-  // Método PUT para actualizar una deuda (registrar un pago)
+  // Método PUT para actualizar una deuda (registrar un pago).
+  // Recibe la deuda modificada y devuelve si la API aceptó la actualización.
   Future<bool> actualizarDeuda(Deuda deuda) async {
     try {
       // Usamos el ID en la URL, asumiendo que tu API usa la ruta estándar: /api/deudas/5
@@ -57,7 +61,8 @@ class DeudaService {
       return false; 
     }
   }
-  // Método DELETE para eliminar una deuda
+  // Método DELETE para eliminar una deuda.
+  // Recibe el identificador de la deuda y devuelve si se eliminó correctamente.
   Future<bool> eliminarDeuda(int id) async {
     try {
       final response = await http.delete(Uri.parse('$baseUrl/$id'));

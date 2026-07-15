@@ -9,13 +9,17 @@ import '../services/deuda_service.dart';
 import '../models/deuda.dart';
 import 'login_screen.dart';
 import '../models/user_session.dart';
+// Pantalla principal que muestra el resumen financiero del usuario autenticado.
 class DashboardScreen extends StatefulWidget {
+  // Constructor sin parámetros obligatorios para crear el panel principal.
   const DashboardScreen({super.key});
 
   @override
+  // Crea el estado encargado de consultar los datos y controlar el mes seleccionado.
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
    
+// Estado privado que calcula los totales y actualiza el contenido del panel.
 class _DashboardScreenState extends State<DashboardScreen> {
   // --- NUEVO: Variable para controlar el mes seleccionado ---
   int _mesSeleccionado = DateTime.now().month;
@@ -72,6 +76,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   @override
+  // Construye el panel con el resumen calculado para el mes seleccionado.
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],

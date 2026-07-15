@@ -4,19 +4,24 @@ import 'main_screen.dart';
 import 'registro_screen.dart';
 import 'recuperar_contrasena_screen.dart';
 
+// Pantalla que solicita las credenciales necesarias para iniciar sesión.
 class LoginScreen extends StatefulWidget {
+  // Constructor sin parámetros obligatorios para crear la pantalla de acceso.
   const LoginScreen({super.key});
 
   @override
+  // Crea el estado que gestiona los campos de credenciales y el proceso de acceso.
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+// Estado privado que valida el formulario e inicia la sesión mediante AuthService.
 class _LoginScreenState extends State<LoginScreen> {
   final _correoController = TextEditingController();
   final _contrasenaController = TextEditingController();
   bool _estaCargando = false;
   final _authService = AuthService();
 
+  // Valida el correo y la contraseña escritos, los envía a la API y navega al inicio si son válidos.
   void _procesarLogin() async {
     if (_correoController.text.isEmpty || _contrasenaController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -55,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  // Construye el formulario visual de inicio de sesión usando el contexto actual.
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],

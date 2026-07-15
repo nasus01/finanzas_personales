@@ -5,13 +5,17 @@ import 'agregar_screen.dart';
 import 'deudas_screen.dart';
 import 'movimientos_screen.dart';
 
+// Pantalla contenedora que permite navegar entre las secciones principales de la aplicación.
 class MainScreen extends StatefulWidget {
+  // Constructor sin parámetros obligatorios para crear la navegación principal.
   const MainScreen({super.key});
 
   @override
+  // Crea el estado que conserva la pestaña seleccionada por el usuario.
   State<MainScreen> createState() => _MainScreenState();
 }
 
+// Estado privado que cambia la pantalla mostrada según el índice de la barra inferior.
 class _MainScreenState extends State<MainScreen> {
   // Esta variable guarda el número de la pestaña activa (0 = Inicio, 2 = Agregar)
   int _indiceActual = 0;
@@ -25,6 +29,7 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   @override
+  // Construye la pantalla activa y la barra inferior de navegación.
   Widget build(BuildContext context) {
     return Scaffold(
       // El body cambia dinámicamente según la pantalla seleccionada

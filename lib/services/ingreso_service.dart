@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/ingreso.dart';
 
+// Servicio que realiza las operaciones de consulta y mantenimiento de ingresos en la API.
 class IngresoService {
   // ATENCIÓN AQUÍ: 
   // Cuando usas el emulador de Android, 'localhost' se refiere al propio celular.
@@ -11,7 +12,8 @@ class IngresoService {
   // Reemplaza el '5000' por el puerto exacto que usa tu API de .NET (ej. 5001, 7123, etc.)
   final String baseUrl = 'http://10.0.2.2:5282/api/ingresos';
 
-  // Método GET para consultar ingresos
+  // Método GET para consultar ingresos.
+  // Recibe el ID del usuario y devuelve la lista de ingresos que le pertenece.
   Future<List<Ingreso>> obtenerIngresos(int usuarioId) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl?usuarioId=$usuarioId'));
@@ -31,7 +33,8 @@ class IngresoService {
   }
   // --- AGREGA ESTE BLOQUE AQUÍ ---
   
-  // Método POST para guardar un nuevo ingreso
+  // Método POST para guardar un nuevo ingreso.
+  // Recibe el objeto Ingreso y devuelve si la API lo registró correctamente.
   Future<bool> crearIngreso(Ingreso ingreso) async {
     try {
       final response = await http.post(
@@ -52,7 +55,7 @@ class IngresoService {
       return false; // Si hay error de red
     }
   }
-  // --- Método Delete ---
+  // Método DELETE para eliminar un ingreso mediante su identificador.
   Future<bool> eliminarIngreso(int id) async {
     try {
       final response = await http.delete(
@@ -63,7 +66,8 @@ class IngresoService {
       return false;
     }
   }
-  // Método PUT para actualizar un ingreso
+  // Método PUT para actualizar un ingreso.
+  // Recibe el ingreso modificado y devuelve si la API confirmó el cambio.
   Future<bool> actualizarIngreso(Ingreso ingreso) async {
     try {
       final response = await http.put(

@@ -1,3 +1,4 @@
+// Modelo que representa un ingreso económico asociado a un usuario.
 class Ingreso {
   // 1. Atributos (las propiedades que vienen de tu base de datos)
   final int? id;
@@ -7,6 +8,7 @@ class Ingreso {
   final int usuarioId;
 
   // 2. Constructor (el molde para crear nuevos objetos Ingreso en memoria)
+  // Constructor que recibe los datos necesarios para crear un ingreso.
   Ingreso({
     this.id,
     required this.monto,

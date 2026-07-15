@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/gasto.dart';
 
+// Servicio que gestiona en la API las operaciones relacionadas con gastos.
 class GastoService {
   final String baseUrl = 'http://10.0.2.2:5282/api/gastos';
 
-  // Método GET para consultar gastos
+  // Método GET para consultar gastos.
+  // Recibe el ID del usuario y devuelve todos sus gastos.
  Future<List<Gasto>> obtenerGastos(int usuarioId) async {
     try {
       final response = await http.get(Uri.parse('$baseUrl?usuarioId=$usuarioId'));
@@ -20,7 +22,8 @@ class GastoService {
     }
   }
 
-  // Método POST para guardar un nuevo gasto
+  // Método POST para guardar un nuevo gasto.
+  // Recibe el objeto Gasto y devuelve si se registró correctamente.
   Future<bool> crearGasto(Gasto gasto) async {
     try {
       final response = await http.post(
@@ -37,7 +40,7 @@ class GastoService {
       return false; 
     }
   }
-  // --- Método Delete ---
+  // Método DELETE para eliminar un gasto por su identificador.
   Future<bool> eliminarGasto(int id) async {
     try {
       final response = await http.delete(
@@ -48,7 +51,8 @@ class GastoService {
       return false;
     }
   }
-  // Método PUT para actualizar un gasto
+  // Método PUT para actualizar un gasto.
+  // Recibe el gasto con sus cambios y devuelve si la actualización fue exitosa.
   Future<bool> actualizarGasto(Gasto gasto) async {
     try {
       final response = await http.put(

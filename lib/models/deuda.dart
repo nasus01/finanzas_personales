@@ -1,3 +1,4 @@
+// Modelo que representa una deuda, sus datos básicos y el progreso de pago.
 class Deuda {
   final int? id;
   final String nombre;
@@ -7,6 +8,7 @@ class Deuda {
   final DateTime fechaPago;
   final int? usuarioId;
 
+  // Constructor que recibe los datos de una deuda; pagado es opcional e inicia en cero.
   Deuda({
     this.id,
     required this.nombre,
@@ -32,6 +34,7 @@ class Deuda {
   }
 
   // --- CONVERSIÓN PARA TU API .NET ---
+  // Crea una Deuda a partir del mapa JSON recibido desde la API.
   factory Deuda.fromJson(Map<String, dynamic> json) {
     return Deuda(
       id: json['id'],
@@ -44,6 +47,7 @@ class Deuda {
     );
   }
 
+  // Convierte esta deuda en un mapa JSON para enviarlo a la API.
 Map<String, dynamic> toJson() {
     // Creamos un mapa base con los datos
     final mapa = <String, dynamic>{

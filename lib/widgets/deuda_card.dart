@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import '../models/deuda.dart'; // Importamos tu clase POO
 
+// Widget reutilizable que presenta el estado de una deuda y su avance de pago.
 class DeudaCard extends StatelessWidget {
   final Deuda deuda; // El widget recibe un objeto Deuda completo
 
+  // Constructor que recibe la deuda cuyos datos se mostrarán en la tarjeta.
   const DeudaCard({super.key, required this.deuda});
 
   @override
+  // Construye la tarjeta con el nombre, los montos y la barra de progreso de la deuda.
   Widget build(BuildContext context) {
     return Card(
       elevation: 3,

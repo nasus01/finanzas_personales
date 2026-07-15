@@ -6,17 +6,22 @@ import '../models/user_session.dart';
 import '../models/gasto.dart';
 import '../services/gasto_service.dart';
 
+// Pantalla que permite consultar, pagar, editar y eliminar las deudas del usuario.
 class DeudasScreen extends StatefulWidget {
+  // Constructor sin parámetros obligatorios para crear la pantalla de deudas.
   const DeudasScreen({super.key});
 
   @override
+  // Crea el estado que administra las acciones realizadas sobre cada deuda.
   State<DeudasScreen> createState() => _DeudasScreenState();
 }
 
+// Estado privado que obtiene las deudas y controla sus diálogos de pago y edición.
 class _DeudasScreenState extends State<DeudasScreen> {
   final deudaService = DeudaService();
 
-  // Esta función crea una ventanita emergente para ingresar el pago
+  // Esta función crea una ventanita emergente para ingresar el pago.
+  // Recibe la deuda seleccionada, registra el abono y actualiza sus datos en la API.
   void _mostrarDialogoPago(Deuda deuda) {
     final montoController = TextEditingController();
 
@@ -75,7 +80,8 @@ class _DeudasScreenState extends State<DeudasScreen> {
       },
     );
   }
-  // Función para editar el nombre y total de una deuda
+  // Función para editar el nombre y total de una deuda.
+  // Recibe la deuda seleccionada y guarda en la API los datos modificados.
   void _mostrarDialogoEditarDeuda(Deuda deuda) {
     final nombreController = TextEditingController(text: deuda.nombre);
     final totalController = TextEditingController(text: deuda.total.toStringAsFixed(0));
@@ -139,6 +145,7 @@ class _DeudasScreenState extends State<DeudasScreen> {
   }
 
   @override
+  // Construye la lista de deudas y muestra los estados de carga, error o lista vacía.
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],

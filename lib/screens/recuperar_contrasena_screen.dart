@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
+// Pantalla que permite reemplazar la contraseña de una cuenta registrada.
 class RecuperarContrasenaScreen extends StatefulWidget {
+  // Constructor sin parámetros obligatorios para crear la pantalla de recuperación.
   const RecuperarContrasenaScreen({super.key});
 
   @override
+  // Crea el estado que controla los campos y la solicitud de recuperación.
   State<RecuperarContrasenaScreen> createState() => _RecuperarContrasenaScreenState();
 }
 
+// Estado privado que valida los datos y solicita el cambio de contraseña a la API.
 class _RecuperarContrasenaScreenState extends State<RecuperarContrasenaScreen> {
   final _correoController = TextEditingController();
   final _nuevaContrasenaController = TextEditingController();
@@ -15,6 +19,7 @@ class _RecuperarContrasenaScreenState extends State<RecuperarContrasenaScreen> {
   bool _estaCargando = false;
   final _authService = AuthService();
 
+  // Comprueba los campos y solicita el cambio usando el correo y la nueva contraseña escritos.
   void _procesarRecuperacion() async {
     if (_correoController.text.isEmpty || _nuevaContrasenaController.text.isEmpty || _confirmarContrasenaController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Por favor, llena todos los campos')));
@@ -53,6 +58,7 @@ class _RecuperarContrasenaScreenState extends State<RecuperarContrasenaScreen> {
   }
 
   @override
+  // Construye el formulario para solicitar la actualización de contraseña.
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],

@@ -6,13 +6,17 @@ import '../models/ingreso.dart';
 import '../models/gasto.dart';
 import '../models/user_session.dart';
 
+// Pantalla que reúne y permite administrar los ingresos y gastos del usuario.
 class MovimientosScreen extends StatefulWidget {
+  // Constructor sin parámetros obligatorios para crear el historial de movimientos.
   const MovimientosScreen({super.key});
 
   @override
+  // Crea el estado que carga, edita y elimina los movimientos.
   State<MovimientosScreen> createState() => _MovimientosScreenState();
 }
 
+// Estado privado que combina los movimientos obtenidos de los servicios de ingresos y gastos.
 class _MovimientosScreenState extends State<MovimientosScreen> {
   // Función para obtener y mezclar ingresos y gastos
   Future<List<Map<String, dynamic>>> _obtenerTodosLosMovimientos() async {
@@ -61,7 +65,8 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
       throw Exception('Error al cargar los datos: $e');
     }
   }
-  // Función para abrir la ventana de edición
+  // Función para abrir la ventana de edición.
+  // Recibe el mapa de un movimiento y guarda sus cambios en el servicio correspondiente.
   void _mostrarDialogoEditar(Map<String, dynamic> mov) {
     // Precargamos los datos actuales en los controladores
     final descripcionController = TextEditingController(text: mov['descripcion']);
@@ -138,6 +143,7 @@ class _MovimientosScreenState extends State<MovimientosScreen> {
   
 
   @override
+  // Construye el historial y muestra los resultados obtenidos de forma asíncrona.
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],

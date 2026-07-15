@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
+// Pantalla que permite crear una cuenta nueva para acceder a la aplicación.
 class RegistroScreen extends StatefulWidget {
+  // Constructor sin parámetros obligatorios para crear la pantalla de registro.
   const RegistroScreen({super.key});
 
   @override
+  // Crea el estado que gestiona el formulario y el envío de sus datos.
   State<RegistroScreen> createState() => _RegistroScreenState();
 }
 
+// Estado privado que valida y envía los datos de una nueva cuenta al servicio de autenticación.
 class _RegistroScreenState extends State<RegistroScreen> {
   final _nombreController = TextEditingController();
   final _correoController = TextEditingController();
@@ -16,6 +20,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
   bool _estaCargando = false;
   final _authService = AuthService();
 
+  // Valida los datos escritos y envía nombre, correo y contraseña para registrar al usuario.
   void _procesarRegistro() async {
     if (_nombreController.text.isEmpty || _correoController.text.isEmpty || _contrasenaController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Por favor, llena todos los campos')));
@@ -53,6 +58,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
   }
 
   @override
+  // Construye el formulario visual para registrar una nueva cuenta.
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],

@@ -7,13 +7,17 @@ import '../models/deuda.dart';
 import '../services/deuda_service.dart';
 import '../models/user_session.dart';
 
+// Pantalla que permite registrar un ingreso, gasto o deuda desde un formulario.
 class AgregarScreen extends StatefulWidget {
+  // Constructor sin parámetros obligatorios para crear la pantalla de registro.
   const AgregarScreen({super.key});
 
   @override
+  // Crea el estado que controla los campos y acciones de esta pantalla.
   State<AgregarScreen> createState() => _AgregarScreenState();
 }
 
+// Estado privado que administra los datos seleccionados y el guardado del formulario.
 class _AgregarScreenState extends State<AgregarScreen> {
   // 1. Controladores para capturar lo que el usuario escribe
   final _montoController = TextEditingController();
@@ -158,6 +162,7 @@ class _AgregarScreenState extends State<AgregarScreen> {
   }
 
   @override
+  // Construye el formulario y sus controles usando el contexto actual de Flutter.
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],

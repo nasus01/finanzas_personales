@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Clase reutilizable que muestra un resumen en una tarjeta. Recibe el título,
+// el monto, el icono y el color necesarios para representar una categoría.
 class ResumenCard extends StatelessWidget {
   // 1. Definimos qué datos necesita esta tarjeta para funcionar
   final String titulo;
@@ -8,6 +10,8 @@ class ResumenCard extends StatelessWidget {
   final Color colorIcono;
 
   // 2. El constructor que recibe esos datos
+  // Constructor que recibe los datos obligatorios de la tarjeta: título, monto,
+  // icono y color. La clave opcional permite a Flutter identificar el widget.
   const ResumenCard({
     super.key,
     required this.titulo,
@@ -17,6 +21,8 @@ class ResumenCard extends StatelessWidget {
   });
 
   @override
+  // Método que construye la interfaz de la tarjeta. Recibe el contexto del
+  // widget y organiza un icono circular junto con el título y el monto.
   Widget build(BuildContext context) {
     // 3. Estilizamos la tarjeta con Material Design 3
     return Card(
